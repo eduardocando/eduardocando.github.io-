@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eduardo Cando — Educomunicador · Consultor · Músico</title>
+<meta name="description" content="Comunicador Social, Magíster en Antropología Visual, formador docente, músico de vientos andinos y consultor en educomunicación. Quito, Ecuador.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --ink-soft: #4a4a45;
+    --ink-muted: #8a8a82;
+    --paper: #f7f6f2;
+    --paper-warm: #eeecea;
+    --accent: #1a4f72;
+    --accent-light: #d4e6f1;
+    --rule: rgba(26,26,24,0.10);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 60px;
+  }
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 60px;
+  }
+  .hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8vw 6vw 8vw 10vw;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
+  }
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+    max-width: 38ch;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
+  }
+  .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    padding: 0.35rem 0.85rem;
+    color: var(--ink-soft);
+    border-radius: 2px;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.7s forwards;
+  }
+  .btn {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #15405d; }
+  .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .btn-secondary:hover { border-color: var(--ink-soft); }
+
+  .hero-visual {
+    background: var(--paper-warm);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    opacity: 0; animation: fadeIn 1s 0.3s forwards;
+  }
+  .hero-photo-frame {
+    width: min(340px, 70%);
+    aspect-ratio: 3/4;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 32px 64px rgba(26,26,24,0.12);
+  }
+  .hero-photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    display: block;
+  }
+  .hero-photo-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #d4e6f1 0%, #b8d4e8 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.75rem;
+  }
+  .hero-photo-placeholder span { font-family: var(--serif); font-size: 3rem; color: var(--accent); opacity: 0.4; }
+  .hero-photo-placeholder p { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); opacity: 0.6; }
+  .hero-deco {
+    position: absolute; bottom: 2rem; right: 2rem;
+    font-family: var(--serif); font-style: italic;
+    font-size: 0.85rem; color: var(--ink-muted);
+    writing-mode: vertical-rl;
+    letter-spacing: 0.12em;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 10vw; }
+  section:nth-child(even) { background: var(--paper-warm); }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-num {
+    font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--ink); font-weight: 400;
+  }
+  .section-rule { flex: 1; height: 1px; background: var(--rule); }
+
+  /* ── SOBRE MÍ ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-lead {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .about-body { color: var(--ink-soft); margin-bottom: 1rem; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-top: 3rem;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.4rem; color: var(--accent);
+    line-height: 1; margin-bottom: 0.35rem;
+  }
+  .stat-label { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+  .about-skills {}
+  .skills-group { margin-bottom: 2rem; }
+  .skills-group-label {
+    font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .skills-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-chip {
+    font-size: 0.78rem; background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 0.25rem 0.7rem; border-radius: 2px;
+    color: var(--ink-soft);
+  }
+
+  /* ── EXPERIENCIA ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 3rem; padding: 2.5rem 0;
+    border-top: 1px solid var(--rule);
+    cursor: pointer;
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--rule); }
+  .exp-period { font-size: 0.78rem; color: var(--ink-muted); padding-top: 0.2rem; }
+  .exp-content {}
+  .exp-role {
+    font-family: var(--serif);
+    font-size: 1.15rem; color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .exp-org { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.75rem; font-weight: 500; }
+  .exp-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.7; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
+  .exp-tag {
+    font-size: 0.68rem; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.2rem 0.6rem; border-radius: 2px;
+  }
+
+  /* ── MÚSICA ── */
+  .music-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .music-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 2rem; border-radius: 2px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .music-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .music-icon {
+    font-size: 1.6rem; margin-bottom: 1rem;
+    display: block;
+  }
+  .music-title {
+    font-family: var(--serif);
+    font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--ink);
+  }
+  .music-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.65; }
+  .music-highlight {
+    margin-top: 3rem;
+    padding: 2.5rem 3rem;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 2px;
+  }
+  .music-highlight-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.35rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    opacity: 0.95;
+  }
+  .music-highlight-sub { font-size: 0.8rem; opacity: 0.7; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PUBLICACIONES ── */
+  .pub-list { display: flex; flex-direction: column; gap: 0; }
+  .pub-item {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 2rem; padding: 2rem 0;
+    border-top: 1px solid var(--rule); align-items: start;
+  }
+  .pub-item:last-child { border-bottom: 1px solid var(--rule); }
+  .pub-year {
+    font-family: var(--serif);
+    font-size: 1.4rem; color: var(--accent);
+    line-height: 1;
+  }
+  .pub-title { font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
+  .pub-meta { font-size: 0.83rem; color: var(--ink-muted); }
+
+  /* ── BLOG ── */
+  .blog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .blog-card {
+    border: 1px solid var(--rule);
+    padding: 2rem; border-radius: 2px;
+    transition: border-color 0.2s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .blog-card:hover { border-color: var(--accent); }
+  .blog-cat {
+    font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .blog-title {
+    font-family: var(--serif);
+    font-size: 1.1rem; color: var(--ink);
+    line-height: 1.4; margin-bottom: 0.6rem;
+  }
+  .blog-excerpt { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.65; }
+  .blog-coming {
+    text-align: center; padding: 4rem 2rem;
+    border: 1px dashed var(--rule); border-radius: 2px;
+    grid-column: 1 / -1;
+  }
+  .blog-coming p { color: var(--ink-muted); font-size: 0.9rem; }
+  .blog-coming strong { font-family: var(--serif); font-size: 1.2rem; display: block; margin-bottom: 0.5rem; color: var(--ink); }
+
+  /* ── CONTACTO ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .contact-lead {
+    font-family: var(--serif);
+    font-size: 1.25rem; line-height: 1.55;
+    color: var(--ink); margin-bottom: 2rem;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: var(--ink-soft);
+    font-size: 0.9rem; padding: 1rem;
+    border: 1px solid var(--rule); border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link-icon { font-size: 1.1rem; width: 1.5rem; text-align: center; }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
+  .form-input, .form-textarea {
+    font-family: var(--sans);
+    font-size: 0.9rem; font-weight: 300;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 0.75rem 1rem;
+    border-radius: 2px; color: var(--ink);
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(247,246,242,0.6);
+    padding: 3rem 10vw;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-name { font-family: var(--serif); color: var(--paper); font-size: 1rem; }
+  .footer-copy { font-size: 0.78rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.78rem; color: rgba(247,246,242,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--paper); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-visual { min-height: 50vw; order: -1; }
+    .hero-text { padding: 3rem 6vw; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .music-grid { grid-template-columns: 1fr 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    section { padding: 5rem 6vw; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--paper); padding: 1.5rem 5vw; border-bottom: 1px solid var(--rule); gap: 1.2rem; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: flex; }
+  }
+  @media (max-width: 580px) {
+    .music-grid { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Eduardo Cando</span>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#musica">Música & Arte</a></li>
+    <li><a href="#publicaciones">Publicaciones</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Quito, Ecuador · 1979</p>
+    <h1 class="hero-name">Eduardo<br>Cando</h1>
+    <p class="hero-tagline">Educomunicador, formador docente y músico instrumentista de vientos andinos. Más de una década conectando educación, cultura e identidad.</p>
+    <div class="hero-tags">
+      <span class="tag">Comunicación Social</span>
+      <span class="tag">Antropología Visual</span>
+      <span class="tag">Vientos Andinos</span>
+      <span class="tag">FLACSO Ecuador</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#contacto" class="btn btn-primary">Escribir mensaje</a>
+      <a href="#sobre" class="btn btn-secondary">Conocer más</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-photo-frame">
+      <!-- Reemplaza el div de abajo con: <img src="tu-foto.jpg" alt="Eduardo Cando"> -->
+      <div class="hero-photo-placeholder">
+        <span>EC</span>
+        <p>Reemplaza con tu foto</p>
+      </div>
+    </div>
+    <span class="hero-deco">Quito · Ecuador · 2025</span>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Sobre mí</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="about-lead">La música, la narración oral y la educación no son mundos separados en mi trabajo: son tres dimensiones de una misma búsqueda.</p>
+      <p class="about-body">Soy Comunicador Social con Maestría en Antropología Visual por FLACSO Ecuador. Mi trayectoria combina más de diez años en formación docente, diseño curricular y consultoría pedagógica, con más de veinte años como músico instrumentista de vientos andinos y creador de proyectos de arte experimental.</p>
+      <p class="about-body">Actualmente soy Asesor Académico en Santillana Ecuador, donde coordino programas de capacitación continua para docentes de EGB, BGU y Bachillerato Internacional a nivel nacional. He publicado tres libros de texto para el sistema educativo ecuatoriano y trabajado como consultor para OPS/PAHO, FIDA/IFAD y Grupo FARO.</p>
+      <p class="about-body">Fundador de un proyecto pionero de fusión de vientos andinos con expresiones musicales contemporáneas, integrante del colectivo BARRYO de arte experimental audiovisual, y ganador de la convocatoria Escuelas Abiertas de Arte Actual FLACSO 2017.</p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Años en formación docente</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Instituciones capacitadas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Libros de texto publicados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Años como músico activo</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="skills-group">
+        <p class="skills-group-label">Educación & Formación</p>
+        <div class="skills-list">
+          <span class="skill-chip">Formación docente</span>
+          <span class="skill-chip">Diseño curricular</span>
+          <span class="skill-chip">Metodologías activas</span>
+          <span class="skill-chip">Acompañamiento pedagógico</span>
+          <span class="skill-chip">Educación de adultos</span>
+          <span class="skill-chip">Formación de formadores</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <p class="skills-group-label">Comunicación & Cultura</p>
+        <div class="skills-list">
+          <span class="skill-chip">Educomunicación</span>
+          <span class="skill-chip">Comunicación para el desarrollo</span>
+          <span class="skill-chip">Mediación cultural</span>
+          <span class="skill-chip">Producción audiovisual</span>
+          <span class="skill-chip">Narración oral</span>
+          <span class="skill-chip">Arte experimental</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <p class="skills-group-label">Tecnología Educativa</p>
+        <div class="skills-list">
+          <span class="skill-chip">Facilitación digital</span>
+          <span class="skill-chip">Entornos virtuales (EVA)</span>
+          <span class="skill-chip">IA en educación</span>
+          <span class="skill-chip">Adobe Creative Suite</span>
+          <span class="skill-chip">Web 2.0</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <p class="skills-group-label">Idiomas</p>
+        <div class="skills-list">
+          <span class="skill-chip">Español — Nativo</span>
+          <span class="skill-chip">Italiano — Avanzado</span>
+          <span class="skill-chip">Inglés — Intermedio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section id="experiencia">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Experiencia</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-period">Feb 2023 — Actual</div>
+      <div class="exp-content">
+        <p class="exp-role">Asesor Académico / Coach Educativo</p>
+        <p class="exp-org">Santillana S.A. Ecuador</p>
+        <p class="exp-desc">Diseño y facilitación de programas de formación continua para docentes de EGB, BGU y Bachillerato Internacional a nivel nacional. Acompañamiento pedagógico especializado a directivos e instituciones educativas. Más de 50 instituciones en Sierra, Costa y Amazonía.</p>
+        <div class="exp-tags"><span class="exp-tag">Formación docente</span><span class="exp-tag">Nacional</span><span class="exp-tag">Acompañamiento pedagógico</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-period">2017 · 2019 · 2022–23</div>
+      <div class="exp-content">
+        <p class="exp-role">Especialista en Evaluación Educativa</p>
+        <p class="exp-org">INEVAL — Instituto Nacional de Evaluación Educativa</p>
+        <p class="exp-desc">Colaboración recurrente en tres proyectos: elaboración y validación de ítems para el Examen Nacional Ser Bachiller, y capacitación docente como Técnico Formador de Formadores en la región Sierra.</p>
+        <div class="exp-tags"><span class="exp-tag">Evaluación estandarizada</span><span class="exp-tag">Diseño de ítems</span><span class="exp-tag">Formación de formadores</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-period">Ago 2015 — Dic 2022</div>
+      <div class="exp-content">
+        <p class="exp-role">Docente Virtual / Coordinador de Formación</p>
+        <p class="exp-org">Instituto Tecnológico Superior Poliestudios</p>
+        <p class="exp-desc">Docencia en programas de Educación Superior: Neuroeducación, Liderazgo e Innovación Educativa, Competencia Digital Docente, Educación Inclusiva. Gestión de entornos virtuales de aprendizaje.</p>
+        <div class="exp-tags"><span class="exp-tag">Docencia virtual</span><span class="exp-tag">EVA</span><span class="exp-tag">Educación Superior</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-period">Ene 2020 — Oct 2020</div>
+      <div class="exp-content">
+        <p class="exp-role">Analista de Contenidos Ciudadanos</p>
+        <p class="exp-org">Grupo FARO</p>
+        <p class="exp-desc">Desarrollo de estrategias comunicacionales para el Área de Democracia, Transparencia y Ciudadanía Activa. Facilitación digital de talleres y laboratorios ciudadanos.</p>
+        <div class="exp-tags"><span class="exp-tag">Comunicación ciudadana</span><span class="exp-tag">Democracia</span><span class="exp-tag">Contenidos digitales</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-period">Nov 2013 — May 2014</div>
+      <div class="exp-content">
+        <p class="exp-role">Especialista en Museología Educativa y Mediación Cultural</p>
+        <p class="exp-org">Fundación Museos de la Ciudad — CAC Quito</p>
+        <p class="exp-desc">Diseño y ejecución del Programa Educativo del Centro de Arte Contemporáneo de Quito. Mediación pedagógica para públicos escolares, universitarios y comunitarios.</p>
+        <div class="exp-tags"><span class="exp-tag">Museología</span><span class="exp-tag">Mediación cultural</span><span class="exp-tag">Arte contemporáneo</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-period">2013 — 2014</div>
+      <div class="exp-content">
+        <p class="exp-role">Consultor en Comunicación para la Salud</p>
+        <p class="exp-org">OPS/PAHO — Organización Panamericana de la Salud</p>
+        <p class="exp-desc">Consultoría recurrente en dos proyectos de salud pública para comunidades indígenas de Chimborazo y Pichincha. Capacitación en producción radiofónica y comunicación intercultural.</p>
+        <div class="exp-tags"><span class="exp-tag">OPS/PAHO</span><span class="exp-tag">Salud intercultural</span><span class="exp-tag">Comunidades indígenas</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-period">Sep 2009 — Mar 2010</div>
+      <div class="exp-content">
+        <p class="exp-role">Consultor en Educación Comunitaria y Comunicación para el Desarrollo</p>
+        <p class="exp-org">MAGAP / INCCA · FIDA/IFAD — Naciones Unidas</p>
+        <p class="exp-desc">Diseño participativo de materiales educativos para emprendimientos campesinos en 7 provincias del Ecuador. Proyecto financiado por el Fondo Internacional de Desarrollo Agrícola de la ONU.</p>
+        <div class="exp-tags"><span class="exp-tag">FIDA/IFAD — ONU</span><span class="exp-tag">7 provincias</span><span class="exp-tag">Educación popular</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MÚSICA & ARTE -->
+<section id="musica">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Música & Arte</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="music-grid">
+    <div class="music-card reveal">
+      <span class="music-icon">🎵</span>
+      <h3 class="music-title">Proyecto pionero de fusión</h3>
+      <p class="music-desc">Fundador e instrumentista desde 2001. Exploración de la fusión de vientos andinos — quena, zampoña, sicu, rondador, pingullo — con expresiones musicales contemporáneas.</p>
+    </div>
+    <div class="music-card reveal">
+      <span class="music-icon">🎭</span>
+      <h3 class="music-title">Arte escénico y performance</h3>
+      <p class="music-desc">Músico invitado en "Uku Pacha" (Colectivo 0° 1533, 2015) y "El Callejón de los Milagros" (Kléver Viera / El Arrebato, 2007). Conciertos con Sal y Mileto, Pléroma y Kooma.</p>
+    </div>
+    <div class="music-card reveal">
+      <span class="music-icon">📻</span>
+      <h3 class="music-title">Narración oral</h3>
+      <p class="music-desc">Representó al Ecuador en el XVIII Encuentro de Contadores de Mitos y Leyendas en Buga, Colombia. Integrante del grupo Madre Lengua Cuentería en Quito.</p>
+    </div>
+    <div class="music-card reveal">
+      <span class="music-icon">🎞</span>
+      <h3 class="music-title">Colectivo BARRYO</h3>
+      <p class="music-desc">Integrante del colectivo de arte experimental audiovisual con participación en convocatorias nacionales e internacionales. Arte sonoro, memoria e identidad territorial.</p>
+    </div>
+    <div class="music-card reveal">
+      <span class="music-icon">🏆</span>
+      <h3 class="music-title">Escuelas Abiertas FLACSO 2017</h3>
+      <p class="music-desc">Ganador de la convocatoria con el proyecto "Experimentación Sonora, Memoria e Identidades". Exploración de paisajes sonoros y territorios desde instrumentos andinos.</p>
+    </div>
+    <div class="music-card reveal">
+      <span class="music-icon">🌎</span>
+      <h3 class="music-title">Festivales internacionales</h3>
+      <p class="music-desc">Participación en el Festival Cantos de Libertad junto a la agrupación Nativa, compartiendo escenario con Inti Ilimani y Quilapayún.</p>
+    </div>
+  </div>
+  <div class="music-highlight reveal">
+    <p class="music-highlight-quote">"La música andina no es un género — es una forma de estar en el tiempo y en el territorio."</p>
+    <p class="music-highlight-sub">Eduardo Cando · Músico instrumentista desde 2001</p>
+  </div>
+</section>
+
+<!-- PUBLICACIONES -->
+<section id="publicaciones">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Publicaciones</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="pub-list">
+    <div class="pub-item reveal">
+      <div class="pub-year">2022</div>
+      <div>
+        <p class="pub-title">Libro de texto: Educación Cultural y Artística — 2.° BGU</p>
+        <p class="pub-meta">Editorial Didáctica · Colección Creaciones · Bachillerato General Unificado</p>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-year">2019</div>
+      <div>
+        <p class="pub-title">Libros de texto: Educación Cultural y Artística — 2.° y 3.° EGB · 1.° BGU</p>
+        <p class="pub-meta">Editorial Edisa · Educación General Básica y Bachillerato</p>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-year">2017</div>
+      <div>
+        <p class="pub-title">Libro de texto: Educación Cultural y Artística — 2.° BGU</p>
+        <p class="pub-meta">Editorial Didáctica · Colección Imaginar · Bachillerato General Unificado</p>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-year">2017</div>
+      <div>
+        <p class="pub-title">Seleccionado — Escuelas Abiertas de Arte Actual FLACSO</p>
+        <p class="pub-meta">Proyecto: "Laboratorios de experimentación sonora, territorios e identidad" · FLACSO Ecuador</p>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-year">2010</div>
+      <div>
+        <p class="pub-title">Módulo: Uso de tecnologías de la comunicación para el desarrollo</p>
+        <p class="pub-meta">Proyecto FIDA–INCCA–MAGAP · Capacitación campesina rural · Ecuador</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Blog: IA & Educación</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="blog-grid">
+
+    <div class="blog-card reveal">
+      <p class="blog-cat">IA & Docencia</p>
+      <h3 class="blog-title">ChatGPT en el aula: ¿herramienta o distracción? Lo que ningún manual te dice</h3>
+      <p class="blog-excerpt">Llevamos más de dos años escuchando que la IA va a transformar la educación. Pero en el terreno, con docentes reales y aulas reales, la pregunta sigue siendo la misma: ¿cómo la uso mañana lunes? Reflexiones desde la formación docente continua.</p>
+    </div>
+
+    <div class="blog-card reveal">
+      <p class="blog-cat">Metodología</p>
+      <h3 class="blog-title">El docente como diseñador: por qué la IA no reemplaza la mediación pedagógica</h3>
+      <p class="blog-excerpt">Hay una confusión frecuente: pensar que porque la IA puede generar contenido educativo, el rol del docente se vuelve prescindible. Ocurre exactamente lo contrario. La IA hace más urgente —no menos— la presencia de un mediador pedagógico con criterio propio.</p>
+    </div>
+
+    <div class="blog-card reveal">
+      <p class="blog-cat">Reflexión crítica</p>
+      <h3 class="blog-title">Aprender con IA sin perder la identidad cultural: una tensión que vale la pena nombrar</h3>
+      <p class="blog-excerpt">Los modelos de lenguaje fueron entrenados mayoritariamente en inglés y desde perspectivas del norte global. ¿Qué pasa cuando los usamos para enseñar historia o cultura en contextos como el Ecuador? Una pregunta que la educomunicación no puede ignorar.</p>
+    </div>
+
+    <div class="blog-card reveal">
+      <p class="blog-cat">Práctica docente</p>
+      <h3 class="blog-title">5 usos concretos de la IA generativa que ya aplico en talleres de formación docente</h3>
+      <p class="blog-excerpt">No en teoría: en talleres presenciales con docentes de EGB y BGU en Ecuador. Desde generación de rúbricas hasta simulación de escenarios pedagógicos difíciles. Lo que funciona, lo que no, y lo que sigo explorando.</p>
+    </div>
+
+    <div class="blog-card reveal">
+      <p class="blog-cat">Tendencias</p>
+      <h3 class="blog-title">Aulas híbridas + IA: el escenario que los directivos educativos deben entender ahora</h3>
+      <p class="blog-excerpt">La pandemia aceleró la hibridación de los entornos de aprendizaje. La IA llega a profundizar ese cambio. Para quienes lideramos instituciones educativas, ignorar esta convergencia ya no es una opción neutral: es una decisión con consecuencias.</p>
+    </div>
+
+    <div class="blog-card reveal">
+      <p class="blog-cat">Ética & Educación</p>
+      <h3 class="blog-title">¿Qué le decimos a los estudiantes sobre la IA? Una guía honesta para docentes sin respuestas perfectas</h3>
+      <p class="blog-excerpt">Los estudiantes ya usan IA para hacer tareas. Los docentes lo saben. La pregunta no es si prohibirla, sino qué conversación educativa queremos tener sobre ella. Algunas pistas desde la práctica y la ética de la comunicación.</p>
+    </div>
+
+  </div>
+  <div style="text-align:center; margin-top: 2.5rem;">
+    <p style="font-size:0.82rem; color: var(--ink-muted); letter-spacing:0.06em;">Artículos completos próximamente · Escríbeme para recibirlos en tu correo</p>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-header reveal">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Contacto</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="contact-lead">¿Tienes un proyecto educativo, cultural o de consultoría en mente? Me interesa conversar.</p>
+      <div class="contact-links">
+        <a href="mailto:eduardocando@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <span>eduardocando@gmail.com</span>
+        </a>
+        <a href="tel:+593995428432" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <span>+593 995 428 432</span>
+        </a>
+        <a href="https://linkedin.com/in/eduardo-cando" target="_blank" class="contact-link">
+          <span class="contact-link-icon">in</span>
+          <span>LinkedIn — Eduardo Cando</span>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-link-icon">📍</span>
+          <span>Quito, Ecuador</span>
+        </a>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleForm(event)">
+        <div class="form-group">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-input" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input type="email" class="form-input" placeholder="tu@correo.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mensaje</label>
+          <textarea class="form-textarea" placeholder="Cuéntame sobre tu proyecto o consulta..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Eduardo Cando</span>
+  <span class="footer-copy">© 2025 · Quito, Ecuador</span>
+  <div class="footer-links">
+    <a href="#sobre">Sobre mí</a>
+    <a href="#experiencia">Experiencia</a>
+    <a href="#musica">Música</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav
+  const toggle = document.getElementById('navToggle');
+  const links  = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--accent)' : ''; });
+  });
+
+  // Form handler
+  function handleForm(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '¡Mensaje enviado!';
+    btn.style.background = '#1E8449';
+    setTimeout(() => { btn.textContent = 'Enviar mensaje'; btn.style.background = ''; e.target.reset(); }, 3000);
+  }
+</script>
+</body>
+</html>
